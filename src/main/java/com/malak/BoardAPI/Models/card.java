@@ -1,9 +1,10 @@
 package com.malak.BoardAPI.Models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+
 
 
 @Getter
@@ -20,10 +21,9 @@ public class card extends BaseEntity {
     Integer section;
 
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_board_id", referencedColumnName = "board_id")// This specifies the foreign key column name in the card table
-    private board board;
+
+
+
 
 }
 /**/

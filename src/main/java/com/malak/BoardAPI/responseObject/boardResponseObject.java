@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class boardResponseObject {
-    Long boardId;
+    Long board_id;
     String boardName;
+    Map<Integer, String> columns;
 
 }

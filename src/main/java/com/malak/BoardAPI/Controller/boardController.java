@@ -1,5 +1,8 @@
 package com.malak.BoardAPI.Controller;
 
+import com.malak.BoardAPI.Error.CustomDataAccessException;
+import com.malak.BoardAPI.Error.CustomDataIntegrityException;
+import com.malak.BoardAPI.Error.CustomException;
 import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Models.card;
 import com.malak.BoardAPI.Service.boardService;
@@ -14,32 +17,23 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/boards")
 public class boardController {
     @Autowired
     boardService boardService;
-    @PostMapping("/boards")
-public void crateBoard(/*@RequestBody boardRequestObject boardrequestobject*/){
-    board  boardRequestedObject = new board();
-//    boardRequestedObject.setBoardName(boardrequestobject.getBoardName());
-//        boardRequestedObject.setCreatedDate(new Date());
-//        boardRequestedObject.setIsActive(true);
-//        Map<Integer, String> columns =new HashMap<>();
-//        columns.put(1,"To do") ;
-//        columns.put(2,"In progress") ;
-//        columns.put(3,"Done") ;
-//        boardRequestedObject.setColumns(columns);
-        boardRequestedObject.setBoardName("malak 1st board");
-        boardRequestedObject.setCreatedDate(new Date());
- boardRequestedObject.setIsActive(true);
-        boardService.createBoard(boardRequestedObject);
-}
-@GetMapping("/boards")
-    public List<board> getAllBoards(){
-        return boardService.getAllBoards();
-}
 
 
+    @PostMapping
+    public boardResponseObject createAnewBoard(@RequestBody boardRequestObject requstedBoard) throws CustomDataAccessException, CustomDataIntegrityException, CustomException {
+        board boardObject= new board();
+        boardObject.setBoardName(requstedBoard.getBoardName());
+        Map<Integer, String> Columns = new HashMap<>();
 
-
+        // Add elements to the HashMap
+        Columns.put(1, "To do");
+        Columns.put(2, "In progress");
+        Columns.put(3, "Done");
+        boardObject.setColumns(Columns);
+        return boardService.createAnewBoard(boardObject);
+    }
 }

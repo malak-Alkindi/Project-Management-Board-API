@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,4 +18,5 @@ import java.util.List;
 public class boardRequestObject {
 
     String boardName;
+
 }
