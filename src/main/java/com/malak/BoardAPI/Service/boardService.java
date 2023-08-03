@@ -12,6 +12,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class boardService {
     @Autowired
@@ -33,6 +36,18 @@ public class boardService {
             throw new CustomDataAccessException("An error occurred while saving the board.", e);
         } catch (Exception e) {
             throw new CustomException("An unexpected error occurred while saving the board.", e);
+        }
+    }
+
+
+
+
+    public List<board> getAllBoards(Long boardId) {
+        if (boardId != null) {
+            Optional<board> boardOptional = boardRepo.findById(boardId);
+            return boardOptional.map(List::of).orElseGet(List::of);
+        } else {
+            return boardRepo.findAll();
         }
     }
 }

@@ -36,4 +36,9 @@ public class boardController {
         boardObject.setColumns(Columns);
         return boardService.createAnewBoard(boardObject);
     }
+
+    @GetMapping(value = {"", "{id}"})
+    public List<board> getBoardsOrOneBoard(@PathVariable(required = false) Long id){
+        return  boardService.getAllBoards(id);
+    }
 }
