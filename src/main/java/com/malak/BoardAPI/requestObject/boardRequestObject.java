@@ -15,6 +15,6 @@ import java.util.List;
 @Setter
 
 public class boardRequestObject {
+
     String boardName;
-    List<card> cards;
 }
