@@ -12,5 +12,5 @@ import lombok.Setter;
 public class cardRequestObject {
     String title;
     String description;
-    String section;
+    Integer section;
 }

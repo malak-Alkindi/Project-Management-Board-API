@@ -2,7 +2,9 @@ package com.malak.BoardAPI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequestMapping("{board_id}/cards")
 @SpringBootApplication
 public class BoardApiApplication {
 

@@ -21,6 +21,10 @@ public class card extends BaseEntity {
     Integer section;
 
 
+    @ManyToOne
+    @JoinColumn(name = "board_id_fk", referencedColumnName = "board_id")
+    private board board;
+
 
 
 

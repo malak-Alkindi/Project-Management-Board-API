@@ -19,7 +19,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/boards")
-public class boardController {
+public  class  boardController {
     @Autowired
     boardService boardService;
 
