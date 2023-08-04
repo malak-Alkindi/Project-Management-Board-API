@@ -4,6 +4,7 @@ package com.malak.BoardAPI.Service;
 import com.malak.BoardAPI.Error.CustomDataAccessException;
 import com.malak.BoardAPI.Error.CustomDataIntegrityException;
 import com.malak.BoardAPI.Error.CustomException;
+import com.malak.BoardAPI.Error.NotFoundException;
 import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Repositry.boardRepositry;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
@@ -42,10 +43,14 @@ public class boardService {
 
 
 
-    public List<board> getAllBoards(Long boardId) {
+    public List<board> getAllBoards(Long boardId) throws NotFoundException {
         if (boardId != null) {
+//If boardId is not null,
+// find the board with the given boardId in the repository (boardRepo.findById(boardId)).
+//If the board is found, convert it into a list (map(List::of)).
+// If not found, return an empty list (orElseGet(List::of)) and throw not found exeption.
             Optional<board> boardOptional = boardRepo.findById(boardId);
-            return boardOptional.map(List::of).orElseGet(List::of);
+            return boardOptional.map(List::of).orElseThrow(() -> new NotFoundException("Board not found with the given :"  +boardId));
         } else {
             return boardRepo.findAll();
         }

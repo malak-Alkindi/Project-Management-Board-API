@@ -3,6 +3,7 @@ package com.malak.BoardAPI.Controller;
 import com.malak.BoardAPI.Error.CustomDataAccessException;
 import com.malak.BoardAPI.Error.CustomDataIntegrityException;
 import com.malak.BoardAPI.Error.CustomException;
+import com.malak.BoardAPI.Error.NotFoundException;
 import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Models.card;
 import com.malak.BoardAPI.Service.boardService;
@@ -38,7 +39,7 @@ public class boardController {
     }
 
     @GetMapping(value = {"", "{id}"})
-    public List<board> getBoardsOrOneBoard(@PathVariable(required = false) Long id){
+    public List<board> getBoardsOrOneBoard(@PathVariable(required = false) Long id) throws NotFoundException {
         return  boardService.getAllBoards(id);
     }
 }
