@@ -8,10 +8,14 @@ import com.malak.BoardAPI.Error.NotFoundException;
 import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Repositry.boardRepositry;
 import com.malak.BoardAPI.requestObject.boardRequestObject;
+import com.malak.BoardAPI.responseObject.APIResponse;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -76,5 +80,23 @@ public class boardService {
     }
 }
 
+        public APIResponse deleteABoard(Long id) {
+            try {
+                Optional<board> boardOptional = boardRepo.findById(id);
+
+                if (boardOptional.isPresent()) {
+                    boardRepo.deleteById(id);
+
+                    return new APIResponse(true, "Board with ID " + id + " has been deleted successfully.");
+                } else {
+
+                    return new APIResponse(false, "No board found with ID: " + id);
+                }
+            } catch (EmptyResultDataAccessException e) {
+
+                return new APIResponse(false, "No board found with ID: " + id);
+            }
+
+    }
 
 }

@@ -7,8 +7,11 @@ import com.malak.BoardAPI.Error.NotFoundException;
 import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Service.boardService;
 import com.malak.BoardAPI.requestObject.boardRequestObject;
+import com.malak.BoardAPI.responseObject.APIResponse;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +26,7 @@ public class boardController {
 
     @PostMapping
     public boardResponseObject createAnewBoard(@RequestBody boardRequestObject requstedBoard) throws CustomDataAccessException, CustomDataIntegrityException, CustomException {
-        board boardObject= new board();
+        board boardObject = new board();
         boardObject.setBoardName(requstedBoard.getBoardName());
         Map<Integer, String> Columns = new HashMap<>();
 
@@ -60,9 +63,18 @@ public class boardController {
 
         if (response != null) {
 
-            return  ResponseEntity.ok(new boardResponseObject(response.getBoard_id(), response.getBoardName(), response.getColumns()));
+            return ResponseEntity.ok(new boardResponseObject(response.getBoard_id(), response.getBoardName(), response.getColumns()));
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public APIResponse deleteBoard(@PathVariable Long id) throws NotFoundException {
+
+
+ return boardService.deleteABoard(id);
+
     }
 }
