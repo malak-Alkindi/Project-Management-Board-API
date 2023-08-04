@@ -4,12 +4,10 @@ import com.malak.BoardAPI.Error.CustomDataAccessException;
 import com.malak.BoardAPI.Error.CustomDataIntegrityException;
 import com.malak.BoardAPI.Error.CustomException;
 import com.malak.BoardAPI.Error.NotFoundException;
-import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Models.card;
 import com.malak.BoardAPI.Repositry.cardRepositry;
 import com.malak.BoardAPI.requestObject.cardRequestObject;
 import com.malak.BoardAPI.responseObject.APIResponse;
-import com.malak.BoardAPI.responseObject.boardResponseObject;
 import com.malak.BoardAPI.responseObject.cardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -51,46 +49,51 @@ public class cardService {
     }
 
 
-    public card getCardById(Long cardId, Long boardId) throws NotFoundException {
+    public card getCardById(Long  boardId , Long cardId) throws NotFoundException {
         card foundCard = cardRepo.findCardByBoardIdAndCardId(cardId, boardId);
         if (foundCard == null) {
             throw new NotFoundException("Card not found with ID: " + cardId + " in board with ID: " + boardId);
         }
         return foundCard;
     }
-//
-//    public card updateCard(Long id, cardRequestObject updatedCard) throws NotFoundException {
-//        Optional<card> optionalCard = cardRepo.findById(id);
-//
-//        if (optionalCard.isPresent()) {
-//            card card = optionalCard.get();
-//
-//            // Update the card details with the new information
-//            card.setBoardName(updatedCard.getBoardName());
-//            card.setUpdatedDate(new Date());
-//            // Save the updated card to the repository
-//            cardRepo.save(card);
-//
-//            return card;
-//        } else {
-//            throw new NotFoundException("Card not found with id: " + id);
-//        }
-//    }
-//
-//    public APIResponse deleteACard(Long id) {
-//        try {
-//            Optional<card> cardOptional = cardRepo.findById(id);
-//
-//            if (cardOptional.isPresent()) {
-//                cardRepo.deleteById(id);
-//                return new APIResponse(true, "Card with ID " + id + " has been deleted successfully.");
-//            } else {
-//                return new APIResponse(false, "No card found with ID: " + id);
-//            }
-//        } catch (EmptyResultDataAccessException e) {
-//            return new APIResponse(false, "No card found with ID: " + id);
-//        }
-//    }
+    public card updateCard(Long boardId, Long id, cardRequestObject updatedCard) throws NotFoundException {
+
+
+        Optional<card> optionalCard = Optional.ofNullable(getCardById(id, boardId));
+
+        if (optionalCard.isPresent()) {
+            card card = optionalCard.get();
+
+            // Update the card details with the new information
+            card.setTitle(updatedCard.getTitle());
+            card.setDescription(updatedCard.getDescription());
+            card.setSection(updatedCard.getSection());
+            card.setUpdatedDate(new Date());
+            // Save the updated card to the repository
+            cardRepo.save(card);
+
+            return card;
+        } else {
+            throw new NotFoundException("Card not found with id: " + id +"assigned to board ");
+        }
+    }
+
+    public APIResponse deleteACard(Long boardId,Long id) {
+        try {
+            Optional<card> optionalCard = Optional.ofNullable(getCardById(id,boardId));
+            if (optionalCard.isPresent()) {
+                cardRepo.deleteById(id);
+
+                return new APIResponse(true, "Card with ID " + id + " has been deleted successfully from board " + boardId);
+            } else {
+                return new APIResponse(false, "No card found with ID: " + id);
+            }
+        } catch (EmptyResultDataAccessException e) {
+            return new APIResponse(false, "No card found with ID: " + id);
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 

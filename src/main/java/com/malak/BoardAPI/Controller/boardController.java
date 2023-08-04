@@ -78,3 +78,8 @@ public  class  boardController {
 
     }
 }
+
+//quations i need to ask to danier or atyap
+//1) the exeption catshing should be in service or in controller
+//2) is updateBoard is a good way to write
+//3) how to use the bidirectional relationship if hibrnate the class will cuz leak?
