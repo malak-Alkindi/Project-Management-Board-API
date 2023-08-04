@@ -5,17 +5,14 @@ import com.malak.BoardAPI.Error.CustomDataIntegrityException;
 import com.malak.BoardAPI.Error.CustomException;
 import com.malak.BoardAPI.Error.NotFoundException;
 import com.malak.BoardAPI.Models.board;
-import com.malak.BoardAPI.Models.card;
 import com.malak.BoardAPI.Service.boardService;
 import com.malak.BoardAPI.requestObject.boardRequestObject;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/boards")
@@ -39,7 +36,33 @@ public class boardController {
     }
 
     @GetMapping(value = {"", "{id}"})
-    public List<board> getBoardsOrOneBoard(@PathVariable(required = false) Long id) throws NotFoundException {
-        return  boardService.getAllBoards(id);
+
+    public ResponseEntity<List<boardResponseObject>> getBoardsOrOneBoard(@PathVariable(required = false) Long id) {
+        List<boardResponseObject> boardResponseList = new ArrayList<>();
+
+        try {
+            List<board> boards = id != null ? Collections.singletonList(boardService.getBoardById(id)) : boardService.getAllBoards();
+
+            for (board boardObj : boards) {
+                boardResponseObject boardResponseObject = new boardResponseObject(boardObj.getBoard_id(), boardObj.getBoardName(), boardObj.getColumns());
+                boardResponseList.add(boardResponseObject);
+            }
+
+            return ResponseEntity.ok(boardResponseList);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping(path = "{id}")
+    public ResponseEntity<boardResponseObject> updateBoard(@PathVariable Long id, @RequestBody boardRequestObject updatedProduct) throws NotFoundException {
+        board response = boardService.updateBoard(id, updatedProduct);
+
+        if (response != null) {
+
+            return  ResponseEntity.ok(new boardResponseObject(response.getBoard_id(), response.getBoardName(), response.getColumns()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

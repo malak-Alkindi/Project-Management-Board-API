@@ -14,5 +14,5 @@ public class BaseEntity {
 
     Date createdDate;
     Date updatedDate;
-    Boolean isActive;
+
 }
