@@ -45,14 +45,18 @@ public class cardService {
     public List<card> getAllCards(Long boardId) throws NotFoundException {
         List<card> allCards = cardRepo.findCardsAssignToBoard(boardId);
         if (allCards.isEmpty()) {
-            throw new NotFoundException("No cards found");
+            throw new NotFoundException("No cards found for the specified board.");
         }
         return allCards;
     }
 
 
-    public card getCardById(Long cardId,Long boardId) throws NotFoundException {
-        return cardRepo.findCardByBoardIdAndCardId(cardId,boardId);
+    public card getCardById(Long cardId, Long boardId) throws NotFoundException {
+        card foundCard = cardRepo.findCardByBoardIdAndCardId(cardId, boardId);
+        if (foundCard == null) {
+            throw new NotFoundException("Card not found with ID: " + cardId + " in board with ID: " + boardId);
+        }
+        return foundCard;
     }
 //
 //    public card updateCard(Long id, cardRequestObject updatedCard) throws NotFoundException {
