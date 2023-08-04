@@ -46,8 +46,21 @@ public class cardController {
 
 
 @GetMapping
-    public  List<card> getAllCards() throws NotFoundException {
+    public  List<cardResponseObject> getAllCards(@PathVariable Long board_id) throws NotFoundException {
+    List<cardResponseObject> cardResponseList = new ArrayList<>();
 
-        return cardService.getAllCards();
+    for (card cardObj : cardService.getAllCards(board_id)) {
+        cardResponseObject cardResponseObject = new cardResponseObject(cardObj.getCardId(),cardObj.getTitle(),cardObj.getDescription(),cardObj.getSection());
+        cardResponseList.add(cardResponseObject);
+    }
+        return cardResponseList;
 }
+
+    @GetMapping("{id}")
+    public  cardResponseObject getOneCard(@PathVariable Long board_id,@PathVariable Long id) throws NotFoundException {
+        card cardObj = cardService.getCardById(id,board_id);
+
+
+        return new cardResponseObject(cardObj.getCardId(),cardObj.getTitle(),cardObj.getDescription(),cardObj.getSection());
+    }
 }

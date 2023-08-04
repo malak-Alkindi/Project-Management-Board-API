@@ -42,11 +42,18 @@ public class cardService {
         }
     }
 
+    public List<card> getAllCards(Long boardId) throws NotFoundException {
+        List<card> allCards = cardRepo.findCardsAssignToBoard(boardId);
+        if (allCards.isEmpty()) {
+            throw new NotFoundException("No cards found");
+        }
+        return allCards;
+    }
 
-//
-//    public card getCardById(Long cardId) throws NotFoundException {
-//        return cardRepo.findById(cardId).orElseThrow(() -> new NotFoundException("Card not found with the given ID: " + cardId));
-//    }
+
+    public card getCardById(Long cardId,Long boardId) throws NotFoundException {
+        return cardRepo.findCardByBoardIdAndCardId(cardId,boardId);
+    }
 //
 //    public card updateCard(Long id, cardRequestObject updatedCard) throws NotFoundException {
 //        Optional<card> optionalCard = cardRepo.findById(id);
