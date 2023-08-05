@@ -254,3 +254,14 @@ fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 }
+
+
+document.getElementById("goToBoards").addEventListener('click', () => {
+
+    const myObject = {
+      key1: "value1",
+      key2: "value2",
+    };
+
+    localStorage.setItem("myObject", JSON.stringify(myObject));
+    window.location.href = "./pages/board.html";})

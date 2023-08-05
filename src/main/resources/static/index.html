@@ -1,133 +1,22 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>need to change according to reqiurment</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="malak" content="apiUI">
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Grid</title>
+    <link rel="stylesheet" href="board.css">
 </head>
-
 <body>
-
-
-    <nav class="header">
-        <div class="leftHeader">
-            <h1> <img class="logo"src="./pics/trelloLogo.png" >  <div id="boardName">   </div></h1>
-        </div>
-        <div class="rightHeader">
-            <form id="setName" style="display:flex">
-
-   
-                <input class ='headerInput'type="text" id="boardNameInput" value="" placeholder="type here" required>
-
-
-                <input type="submit" value="set" class="header-submit_btn">
-
-            </form>
-        </div>
-    </nav>
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2 class="sideBarHeaddin">sittings</h2>
-            <ul>
-                <li><a href="#"><i class="bi bi-trello"></i>  Boards</a></li>
-                <li id="showFormBtn"><a href="#"><i class="bi bi-plus-square-fill"></i>  add card</a></li>
-               
-            </ul> 
-           
-        </div>
-        <div class="main_content">
-    <div class="middle">
-<div class="innermiddle">
-    <div class="CardsHeaderColums">
+    <div class="board-form">
+        <div class="form-title">Create a New Board:</div>
+        <input type="text" id="boardTitle" class="form-input" placeholder="Enter the board title">
+        <button onclick="createBoard()" class="form-button">Create Board</button>
+    </div>
+    <div class="board-grid">
+        <!-- Board 1 -->
        
-
-          <h3>to do</h3>
-        
+        <!-- Add more boards as needed -->
     </div>
-        <div class="todo" id="todo">
-           
-        </div>
-</div>
-
-<div class="innermiddle">
-    
-    <div class="CardsHeaderColums">
-       
-       
-
-            <h3>in progress</h3>
-          
-    </div>
-        <div class="inprogress" id="inprogress">
-            
-           
-              
-          
-        </div>
-    </div>
-    
-    <div class="innermiddle">
-        <div class="CardsHeaderColums">
-            <h3>done</h3>
-        </div>
-        <div class="done" id="done">
-          
-        
-             
-        </div>
-    </div>
-</div>
-        </div>
-    <div class="bottom"></div>
-   
-    
-    <div id="cardpopupForm" class="form-popup">
-        <form class="form-container">
-          
-            <label for="cardname">card Name:</label>
-            <input placeHolder="Enter"type="text" id="cardname" required>
-
-            <label for="carddescription">description:</label>
-            <textarea id="carddescription" rows="4" required></textarea>
-
-            <label for="status">section:</label>
-            <select id="status" required>
-                <option value="1">To Do</option>
-                <option value="2">In Progress</option>
-                <option value="3">Done</option>
-                
-            </select>
-            <button type="submit" class="btn">Submit</button>
-            <button type="button" class="btn cancel" id="closeFormBtn">Close</button>
-        </form>
-    </div>
-    
-
-    
-    <div id="ucardpopupForm" class="form-popup">
-        <form class="form-container">
-          
-            <label for="ucardname">card Name:</label>
-            <input placeHolder="Enter"type="text" id="ucardname" required>
-
-            <label for="ucarddescription">description:</label>
-            <textarea id="ucarddescription" rows="4" required></textarea>
-
-            <label for="ustatus">section:</label>
-            <select id="ustatus" required>
-                <option value="1">To Do</option>
-                <option value="2">In Progress</option>
-                <option value="3">Done</option>
-                
-            </select>
-            <button type="submit" class="btn">Submit</button>
-            <button type="button" class="btn cancel" id="ucloseFormBtn">Close</button>
-        </form>
-    </div>
-    <script type="text/javascript" src="index.js"></script>
 </body>
-
+<script type="text/javascript" src="board.js"></script>
 </html>
