@@ -1,6 +1,4 @@
-// const jsonString = localStorage.getItem("myObject");
-// const myObject = JSON.parse(jsonString);
-// console.log(myObject.key1);
+
 
 
 var requestOptions = {
@@ -24,8 +22,8 @@ fetch("http://localhost:8080/api/boards", requestOptions)
     const boardDiv = document.createElement("div");
     boardDiv.classList.add("board");
     boardDiv.id = id;
-    deleteButton.onclick = function () {
-       goToBoard(id,name);
+    boardDiv.onclick = function () {
+       goToBoard(id);
     };
     const boardIdDiv = document.createElement("div");
     boardIdDiv.classList.add("board-id");
@@ -60,4 +58,12 @@ function deleteBoard(boardId) {
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
+}
+function goToBoard(id){
+    const myObject = {
+        id: id,
+      };
+  
+      localStorage.setItem("myObject", JSON.stringify(myObject));
+      window.location.href = "./pages/card.html";
 }

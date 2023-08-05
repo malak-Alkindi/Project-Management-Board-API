@@ -1,4 +1,8 @@
 //setting the saved board name----------------------------------
+
+const jsonString = localStorage.getItem("myObject");
+const myObject = JSON.parse(jsonString);
+const boardiD=myObject.id;
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
@@ -9,7 +13,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/api/boards/5", requestOptions)
+fetch("http://localhost:8080/api/boards/"+boardiD, requestOptions)
   .then((response) =>{ return response.json()})
   .then((result) => {
     console.log(result)
@@ -28,7 +32,7 @@ fetch("http://localhost:8080/api/boards/5", requestOptions)
     redirect: 'follow'
   };
   
-  fetch("http://localhost:8080/api/boards/1/cards", requestOptions)
+  fetch("http://localhost:8080/api/boards/"+boardiD+"/cards", requestOptions)
     .then((response) => {return response.json()})
     .then((result) => {
       result.forEach(cardElment => {
@@ -62,9 +66,9 @@ boardNav.addEventListener("submit", (event) => {
               redirect: 'follow'
             };
             
-            fetch("http://localhost:8080/api/boards/1", requestOptions)
+            fetch("http://localhost:8080/api/boards/"+boardiD, requestOptions)
               .then(response => response.text())
-              .then(result => console.log(result))
+              .then(result => location.reload())
               .catch(error => console.log('error', error));
 
             boardNameInput.value = ""
@@ -111,9 +115,9 @@ cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
       redirect: 'follow'
     };
     
-    fetch("http://localhost:8080/api/boards/1/cards", requestOptions)
+    fetch("http://localhost:8080/api/boards/"+boardiD+"/cards", requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => location.reload())
       .catch(error => console.log('error', error));
 
    
@@ -233,7 +237,7 @@ function Update(id,title,description,section){
     redirect: 'follow'
   };
   
-  fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
+  fetch("http://localhost:8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
   .then(response => response.text())
   .then(result => ucardpopupForm.style.display = 'none')
   .catch(error => console.log('error', error));
@@ -256,12 +260,5 @@ fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
 }
 
 
-document.getElementById("goToBoards").addEventListener('click', () => {
 
-    const myObject = {
-      key1: "value1",
-      key2: "value2",
-    };
-
-    localStorage.setItem("myObject", JSON.stringify(myObject));
-    window.location.href = "./pages/board.html";})
+ 
