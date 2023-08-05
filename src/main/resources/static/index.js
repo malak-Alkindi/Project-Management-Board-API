@@ -235,9 +235,11 @@ function Update(id,title,description,section){
   
   fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
   .then(response => response.text())
-  .then(result => console.log(result))
+  .then(result => ucardpopupForm.style.display = 'none')
   .catch(error => console.log('error', error));
- })}
+ })
+
+ }
 
 
 function deleteCard(id)
