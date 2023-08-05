@@ -5,7 +5,9 @@ import com.malak.BoardAPI.Error.CustomDataIntegrityException;
 import com.malak.BoardAPI.Error.CustomException;
 import com.malak.BoardAPI.Error.NotFoundException;
 import com.malak.BoardAPI.Models.board;
+import com.malak.BoardAPI.Models.card;
 import com.malak.BoardAPI.Service.boardService;
+import com.malak.BoardAPI.Service.cardService;
 import com.malak.BoardAPI.requestObject.boardRequestObject;
 import com.malak.BoardAPI.responseObject.APIResponse;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
@@ -21,7 +23,8 @@ import java.util.*;
 public  class  boardController {
     @Autowired
     boardService boardService;
-
+    @Autowired
+    com.malak.BoardAPI.Service.cardService cardService;
 
     @PostMapping
     public boardResponseObject createAnewBoard(@RequestBody boardRequestObject requstedBoard) throws CustomDataAccessException, CustomDataIntegrityException, CustomException {
@@ -71,8 +74,11 @@ public  class  boardController {
 
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public APIResponse deleteBoard(@PathVariable Long id) throws NotFoundException {
+        List<card> cardList=cardService.getAllCards(id);
+for(card card:cardList){
 
-
+    cardService.deleteACard(id,card.getCardId());
+}
  return boardService.deleteABoard(id);
 
     }

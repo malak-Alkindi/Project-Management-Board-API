@@ -14,6 +14,9 @@ public interface cardRepositry extends JpaRepository<card, Long> {
     @Query("SELECT c FROM card c WHERE c.board.id = :boardId")
     List<card> findCardsAssignToBoard(@Param("boardId") Long boardId);
 
+
     @Query("SELECT c FROM card c WHERE c.board.id = :boardId AND c.cardId = :cardId")
     card findCardByBoardIdAndCardId(@Param("boardId") Long boardId, @Param("cardId") Long cardId);
+
+
 }

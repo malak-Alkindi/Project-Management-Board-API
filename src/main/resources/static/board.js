@@ -24,7 +24,9 @@ fetch("http://localhost:8080/api/boards", requestOptions)
     const boardDiv = document.createElement("div");
     boardDiv.classList.add("board");
     boardDiv.id = id;
-
+    deleteButton.onclick = function () {
+       goToBoard(id,name);
+    };
     const boardIdDiv = document.createElement("div");
     boardIdDiv.classList.add("board-id");
     boardIdDiv.textContent = "ID: " + id;
@@ -49,9 +51,13 @@ fetch("http://localhost:8080/api/boards", requestOptions)
 
 // Function to delete a board
 function deleteBoard(boardId) {
-    const boardToRemove = document.getElementById(boardId);
-    if (boardToRemove) {
-        boardToRemove.remove();
-    }
+    var requestOptions = {
+        method: 'DELETE',
+        redirect: 'follow'
+      };
+      
+      fetch("http://localhost:8080/api/boards/"+boardId, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 }
-
