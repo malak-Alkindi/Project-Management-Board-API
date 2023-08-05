@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class cardResponseObject {
-    Long cardId;
-    String title;
-    String description;
-    Integer section;
+    private Long cardId;
+    private String title;
+    private String description;
+    private Integer section;
 }

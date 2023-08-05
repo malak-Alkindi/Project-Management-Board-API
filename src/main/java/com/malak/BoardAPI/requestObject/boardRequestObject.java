@@ -17,6 +17,6 @@ import java.util.Map;
 
 public class boardRequestObject {
 
-    String boardName;
+    private String boardName;
 
 }

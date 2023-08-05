@@ -10,7 +10,6 @@ import com.malak.BoardAPI.requestObject.boardRequestObject;
 import com.malak.BoardAPI.responseObject.APIResponse;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +29,11 @@ public  class  boardController {
         boardObject.setBoardName(requstedBoard.getBoardName());
         Map<Integer, String> Columns = new HashMap<>();
 
-        // Add elements to the HashMap
         Columns.put(1, "To do");
         Columns.put(2, "In progress");
         Columns.put(3, "Done");
         boardObject.setColumns(Columns);
+
         return boardService.createAnewBoard(boardObject);
     }
 
@@ -79,7 +78,9 @@ public  class  boardController {
     }
 }
 
-//quations i need to ask to danier or atyap
+//quations i need to ask
 //1) the exeption catshing should be in service or in controller
-//2) is updateBoard is a good way to write
+//2) is getBoardsOrOneBoard is a good way to write
 //3) how to use the bidirectional relationship if hibrnate the class will cuz leak?
+//4) assigning data should be where ?controller or services
+//5) is extinding a card contrller to service is good approch since i will use a commen method

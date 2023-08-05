@@ -16,8 +16,8 @@ public class board  extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long board_id;
-    String boardName;
+    private Long board_id;
+    private String boardName;
 
     @ElementCollection
     @CollectionTable(name = "sections", joinColumns = @JoinColumn(name = "board_id"))

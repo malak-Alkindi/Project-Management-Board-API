@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,10 +26,6 @@ public class boardService {
     boardRepositry boardRepo;
 
     public boardResponseObject createAnewBoard(board boardObject) throws CustomDataIntegrityException, CustomDataAccessException, CustomException {
-
-
-
-        // Validate boardObject and perform necessary input validation before saving.
 
         try {
             board savedBoard = boardRepo.save(boardObject);
@@ -68,10 +62,8 @@ public class boardService {
         if (optionalBoard.isPresent()) {
             board board = optionalBoard.get();
 
-            // Update the board details with the new information
             board.setBoardName(updatedBoard.getBoardName());
             board.setUpdatedDate(new Date());
-            // Save the updated board to the repository
             boardRepo.save(board);
 
             return board;

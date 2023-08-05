@@ -15,10 +15,10 @@ public class card extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long cardId;
-    String title;
-    String description;
-    Integer section;
+    private Long cardId;
+    private String title;
+    private String description;
+    private  Integer section;
 
 
     @ManyToOne

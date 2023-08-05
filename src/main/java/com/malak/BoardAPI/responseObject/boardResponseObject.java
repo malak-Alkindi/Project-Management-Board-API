@@ -14,8 +14,8 @@ import java.util.Map;
 @Getter
 @Setter
 public class boardResponseObject {
-    Long board_id;
-    String boardName;
-    Map<Integer, String> columns;
+    private Long board_id;
+    private String boardName;
+    private Map<Integer, String> columns;
 
 }

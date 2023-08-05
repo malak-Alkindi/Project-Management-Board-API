@@ -59,28 +59,26 @@ public class cardService {
     public card updateCard(Long boardId, Long id, cardRequestObject updatedCard) throws NotFoundException {
 
 
-        Optional<card> optionalCard = Optional.ofNullable(getCardById(id, boardId));
+        Optional<card> optionalCard = Optional.ofNullable(cardRepo.findCardByBoardIdAndCardId(boardId,id));
 
         if (optionalCard.isPresent()) {
             card card = optionalCard.get();
 
-            // Update the card details with the new information
             card.setTitle(updatedCard.getTitle());
             card.setDescription(updatedCard.getDescription());
             card.setSection(updatedCard.getSection());
             card.setUpdatedDate(new Date());
-            // Save the updated card to the repository
             cardRepo.save(card);
 
             return card;
         } else {
-            throw new NotFoundException("Card not found with id: " + id +"assigned to board ");
+            throw new NotFoundException("Card not found with id: " + id +" assigned to board " + boardId);
         }
     }
 
     public APIResponse deleteACard(Long boardId,Long id) {
         try {
-            Optional<card> optionalCard = Optional.ofNullable(getCardById(id,boardId));
+            Optional<card> optionalCard = Optional.ofNullable(cardRepo.findCardByBoardIdAndCardId(boardId,id));
             if (optionalCard.isPresent()) {
                 cardRepo.deleteById(id);
 
@@ -90,8 +88,6 @@ public class cardService {
             }
         } catch (EmptyResultDataAccessException e) {
             return new APIResponse(false, "No card found with ID: " + id);
-        } catch (NotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
