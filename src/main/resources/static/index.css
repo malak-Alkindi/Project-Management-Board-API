@@ -237,6 +237,7 @@ align-items: center;
 .card-description {
   font-size: 14px;
   color: #555;
+  word-wrap: break-word;
 }
 
 /* Styles for the action buttons */
@@ -354,3 +355,24 @@ align-items: center;
   color: black; /* Set the text color to black for focused state */
 }
 
+/*/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height:50px;
+  border-radius:10px !important;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+     border-radius:10px;
+     border-radius:10px !important;
+  background: #d3d0e1b5;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    height:50px;
+    border-radius:10px !important;
+  background:#e4c070;
+  }
+  

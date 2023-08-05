@@ -81,6 +81,51 @@ window.addEventListener('click', (event) => {
 
 cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault();
- alert("this work wow");
+    const card = document.createElement('div');
+    card.classList.add('card');
+  
+    const stateBar = document.createElement('div');
+    stateBar.classList.add('state-bar');
+  
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+  
+    const cardIdElement = document.createElement('div');
+    cardIdElement.classList.add('card-id');
+    cardIdElement.innerText = '#' ;
+  
+    const cardTitleElement = document.createElement('h3');
+    cardTitleElement.classList.add('card-title');
+    cardTitleElement.innerText = document.getElementById('cardname').value.trim();
+  
+    const cardDescriptionElement = document.createElement('p');
+    cardDescriptionElement.classList.add('card-description');
+   
+    cardDescriptionElement.innerText = document.getElementById('carddescription').value;
+  
+    const actions = document.createElement('div');
+    actions.classList.add('actions');
+  
+    const updateBtn = document.createElement('button');
+    updateBtn.classList.add('update-btn');
+    updateBtn.innerText = 'Update';
+  
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.innerText = 'Delete';
+  
+    // Append all elements to the card
+    card.appendChild(stateBar);
+    card.appendChild(cardContent);
+    cardContent.appendChild(cardIdElement);
+    cardContent.appendChild(cardTitleElement);
+    cardContent.appendChild(cardDescriptionElement);
+    card.appendChild(actions);
+    actions.appendChild(updateBtn);
+    actions.appendChild(deleteBtn);
+
+    const parentContainer = document.getElementById('todo');
+
+    parentContainer.appendChild(card);
  cardpopupForm.style.display = 'none';
 });
