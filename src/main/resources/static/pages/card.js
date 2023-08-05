@@ -68,7 +68,9 @@ boardNav.addEventListener("submit", (event) => {
             
             fetch("http://localhost:8080/api/boards/"+boardiD, requestOptions)
               .then(response => response.text())
-              .then(result => location.reload())
+              .then(result =>{ location.reload();
+                console.log(result)
+              })
               .catch(error => console.log('error', error));
 
             boardNameInput.value = ""
@@ -117,7 +119,9 @@ cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
     
     fetch("http://localhost:8080/api/boards/"+boardiD+"/cards", requestOptions)
       .then(response => response.text())
-      .then(result => location.reload())
+      .then(result =>{ location.reload();
+        console.log(result)
+      })
       .catch(error => console.log('error', error));
 
    
@@ -225,11 +229,7 @@ function Update(id,title,description,section){
     "section": document.getElementById('ustatus').value
   });
   
-// var raw = JSON.stringify({
-//   "title": "Task 8",
-//   "description": "This is the description for Task 8",
-//   "section": 1
-// });
+
   var requestOptions = {
     method: 'PUT',
     headers: myHeaders,
@@ -239,23 +239,30 @@ function Update(id,title,description,section){
   
   fetch("http://localhost:8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
   .then(response => response.text())
-  .then(result => ucardpopupForm.style.display = 'none')
+  .then(result =>{ 
+    ucardpopupForm.style.display = 'none';
+    location.reload();
+    console.log(result)
+  } )
   .catch(error => console.log('error', error));
  })
 
  }
 
 
-function deleteCard(id)
+a=function deleteCard(id)
 {
 var requestOptions = {
   method: 'DELETE',
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
+fetch("http://localhost:8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
   .then(response => response.text())
-  .then(result => console.log(result))
+  .then(result => { 
+    location.reload();
+    console.log(result)
+})
   .catch(error => console.log('error', error));
 }
 

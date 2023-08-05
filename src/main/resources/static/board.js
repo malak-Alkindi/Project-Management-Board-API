@@ -8,9 +8,13 @@ var requestOptions = {
 fetch("http://localhost:8080/api/boards", requestOptions)
     .then((response) => {return response.json()})
     .then((result) => {
+        
+         
+        
       result.forEach(board => {
         createBoard(board.board_id,board.boardName)
     })
+
   })
   .catch(error => console.log('error', error));
 
@@ -22,9 +26,7 @@ fetch("http://localhost:8080/api/boards", requestOptions)
     const boardDiv = document.createElement("div");
     boardDiv.classList.add("board");
     boardDiv.id = id;
-    boardDiv.onclick = function () {
-       goToBoard(id);
-    };
+    
     const boardIdDiv = document.createElement("div");
     boardIdDiv.classList.add("board-id");
     boardIdDiv.textContent = "ID: " + id;
@@ -32,7 +34,9 @@ fetch("http://localhost:8080/api/boards", requestOptions)
     const boardNameDiv = document.createElement("div");
     boardNameDiv.classList.add("board-name");
     boardNameDiv.textContent = name;
-
+    boardNameDiv.onclick = function () {
+        goToBoard(id);
+     };
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
     deleteButton.textContent = "Delete";
@@ -48,7 +52,7 @@ fetch("http://localhost:8080/api/boards", requestOptions)
 }
 
 // Function to delete a board
-function deleteBoard(boardId) {
+ function deleteBoard(boardId) {
     var requestOptions = {
         method: 'DELETE',
         redirect: 'follow'
@@ -56,7 +60,10 @@ function deleteBoard(boardId) {
       
       fetch("http://localhost:8080/api/boards/"+boardId, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result =>{ 
+            location.reload();
+            console.log(result)
+        })
         .catch(error => console.log('error', error));
 }
 function goToBoard(id){
