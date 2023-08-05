@@ -8,10 +8,8 @@ import com.malak.BoardAPI.Models.board;
 import com.malak.BoardAPI.Models.card;
 import com.malak.BoardAPI.Service.boardService;
 import com.malak.BoardAPI.Service.cardService;
-import com.malak.BoardAPI.requestObject.boardRequestObject;
 import com.malak.BoardAPI.requestObject.cardRequestObject;
 import com.malak.BoardAPI.responseObject.APIResponse;
-import com.malak.BoardAPI.responseObject.boardResponseObject;
 import com.malak.BoardAPI.responseObject.cardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-//for testing
-import com.malak.BoardAPI.Repositry.boardRepositry;
-import com.malak.BoardAPI.Repositry.cardRepositry;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
