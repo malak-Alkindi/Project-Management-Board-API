@@ -1,7 +1,6 @@
-//setting the saved board name
+//setting the saved board name----------------------------------
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-
 
 
 var requestOptions = {
@@ -23,7 +22,21 @@ fetch("http://localhost:8080/api/boards/5", requestOptions)
 
 
 
-//update board name
+//getting the caards--------------------------------------------------------
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("http://localhost:8080/api/boards/1/cards", requestOptions)
+    .then((response) => {return response.json()})
+    .then((result) => {
+      result.forEach(cardElment => {
+        createHtmlCard(cardElment.cardId,cardElment.title,cardElment.description,cardElment.section)
+    }) })
+    .catch(error => console.log('error', error));
+
+//update board name----------------------------------------------------
 let boardNav = document.getElementById("setName");
 boardNav.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -49,7 +62,7 @@ boardNav.addEventListener("submit", (event) => {
               redirect: 'follow'
             };
             
-            fetch("http://localhost:8080/api/boards/5", requestOptions)
+            fetch("http://localhost:8080/api/boards/1", requestOptions)
               .then(response => response.text())
               .then(result => console.log(result))
               .catch(error => console.log('error', error));
@@ -107,57 +120,57 @@ cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
  cardpopupForm.style.display = 'none';
 });
 
-// Function addCardToHtml(){
+function createHtmlCard(id,name,description,section){
   
-//   const card = document.createElement('div');
-//   card.classList.add('card');
+  const card = document.createElement('div');
+  card.classList.add('card');
 
-//   const stateBar = document.createElement('div');
-//   stateBar.classList.add('state-bar');
+  const stateBar = document.createElement('div');
+  stateBar.classList.add('state-bar');
 
-//   const cardContent = document.createElement('div');
-//   cardContent.classList.add('card-content');
+  const cardContent = document.createElement('div');
+  cardContent.classList.add('card-content');
 
-//   const cardIdElement = document.createElement('div');
-//   cardIdElement.classList.add('card-id');
-//   cardIdElement.innerText = '#' ;
+  const cardIdElement = document.createElement('div');
+  cardIdElement.classList.add('card-id');
+  cardIdElement.innerText = '#'+id ;
 
-//   const cardTitleElement = document.createElement('h3');
-//   cardTitleElement.classList.add('card-title');
-//   cardTitleElement.innerText = document.getElementById('cardname').value.trim();
+  const cardTitleElement = document.createElement('h3');
+  cardTitleElement.classList.add('card-title');
+  cardTitleElement.innerText = name;
 
-//   const cardDescriptionElement = document.createElement('p');
-//   cardDescriptionElement.classList.add('card-description');
+  const cardDescriptionElement = document.createElement('p');
+  cardDescriptionElement.classList.add('card-description');
  
-//   cardDescriptionElement.innerText = document.getElementById('carddescription').value;
+  cardDescriptionElement.innerText =description;
 
-//   const actions = document.createElement('div');
-//   actions.classList.add('actions');
+  const actions = document.createElement('div');
+  actions.classList.add('actions');
 
-//   const updateBtn = document.createElement('button');
-//   updateBtn.classList.add('update-btn');
-//   updateBtn.innerText = 'Update';
+  const updateBtn = document.createElement('button');
+  updateBtn.classList.add('update-btn');
+  updateBtn.innerText = 'Update';
 
-//   const deleteBtn = document.createElement('button');
-//   deleteBtn.classList.add('delete-btn');
-//   deleteBtn.innerText = 'Delete';
+  const deleteBtn = document.createElement('button');
+  deleteBtn.classList.add('delete-btn');
+  deleteBtn.innerText = 'Delete';
 
-//   // Append all elements to the card
-//   card.appendChild(stateBar);
-//   card.appendChild(cardContent);
-//   cardContent.appendChild(cardIdElement);
-//   cardContent.appendChild(cardTitleElement);
-//   cardContent.appendChild(cardDescriptionElement);
-//   card.appendChild(actions);
-//   actions.appendChild(updateBtn);
-//   actions.appendChild(deleteBtn);
-// if(document.getElementById("status").value=='1'){
-// document.getElementById('todo').appendChild(card);
-// }
-// else if(document.getElementById("status").value=='2'){
-// document.getElementById('inprogress').appendChild(card);
-// }
-// else if(document.getElementById("status").value=='3'){
-// document.getElementById('done').appendChild(card);
-// }
-// }
+  // Append all elements to the card
+  card.appendChild(stateBar);
+  card.appendChild(cardContent);
+  cardContent.appendChild(cardIdElement);
+  cardContent.appendChild(cardTitleElement);
+  cardContent.appendChild(cardDescriptionElement);
+  card.appendChild(actions);
+  actions.appendChild(updateBtn);
+  actions.appendChild(deleteBtn);
+if(section=='1'){
+document.getElementById('todo').appendChild(card);
+}
+else if(section=='2'){
+document.getElementById('inprogress').appendChild(card);
+}
+else if(section=='3'){
+document.getElementById('done').appendChild(card);
+}
+}
