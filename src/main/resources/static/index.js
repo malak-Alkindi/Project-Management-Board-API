@@ -150,11 +150,16 @@ function createHtmlCard(id,name,description,section){
   const updateBtn = document.createElement('button');
   updateBtn.classList.add('update-btn');
   updateBtn.innerText = 'Update';
-
+  updateBtn.addEventListener('click', function(){
+    //function here
+  });
   const deleteBtn = document.createElement('button');
   deleteBtn.classList.add('delete-btn');
   deleteBtn.innerText = 'Delete';
-
+    deleteBtn.innerText = 'Delete';
+    deleteBtn.addEventListener('click', function(){
+      deleteCard(id);
+  });
   // Append all elements to the card
   card.appendChild(stateBar);
   card.appendChild(cardContent);
@@ -174,3 +179,16 @@ else if(section=='3'){
 document.getElementById('done').appendChild(card);
 }
 }
+
+
+function deleteCard(id)
+{
+var requestOptions = {
+  method: 'DELETE',
+  redirect: 'follow'
+};
+
+fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));}
