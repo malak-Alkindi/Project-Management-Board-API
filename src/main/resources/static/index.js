@@ -123,9 +123,16 @@ cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
     card.appendChild(actions);
     actions.appendChild(updateBtn);
     actions.appendChild(deleteBtn);
-
-    const parentContainer = document.getElementById('todo');
-
-    parentContainer.appendChild(card);
+    const parentContainer=null ;
+if(document.getElementById("status").value=='1'){
+ document.getElementById('todo').appendChild(card);
+}
+else if(document.getElementById("status").value=='2'){
+  document.getElementById('inprogress').appendChild(card);
+ }
+ else if(document.getElementById("status").value=='3'){
+  document.getElementById('done').appendChild(card);
+ }
+   
  cardpopupForm.style.display = 'none';
 });
