@@ -151,7 +151,7 @@ function createHtmlCard(id,name,description,section){
   updateBtn.classList.add('update-btn');
   updateBtn.innerText = 'Update';
   updateBtn.addEventListener('click', function(){
-    //function here
+   Update(id,name,description,section)
   });
   const deleteBtn = document.createElement('button');
   deleteBtn.classList.add('delete-btn');
@@ -181,6 +181,65 @@ document.getElementById('done').appendChild(card);
 }
 
 
+
+
+const ushowFormBtn = document.getElementById('ushowFormBtn');
+const ucloseFormBtn = document.getElementById('ucloseFormBtn');
+const ucardpopupForm = document.getElementById('ucardpopupForm');
+
+ucloseFormBtn.addEventListener('click', () => {
+  ucardpopupForm.style.display = 'none';
+});
+
+
+
+window.addEventListener('click', (event) => {
+    if (event.target === ucardpopupForm) {
+      ucardpopupForm.style.display = 'none';
+    }
+    
+});
+function Update(id,title,description,section){
+
+  ucardpopupForm.style.display = 'block';
+
+ 
+ document.getElementById('ucardname').value=title;
+  document.getElementById('ucarddescription').value=description;
+ document.getElementById('ustatus').value=section;
+
+ ucardpopupForm.querySelector('form').addEventListener('submit', (event) => {
+  event.preventDefault();
+ 
+ var myHeaders = new Headers();
+ myHeaders.append("Content-Type", "application/json");
+
+ 
+  var raw = JSON.stringify({
+    "title": document.getElementById('ucardname').value,
+    "description":document.getElementById('ucarddescription').value,
+    "section": document.getElementById('ustatus').value
+  });
+  
+// var raw = JSON.stringify({
+//   "title": "Task 8",
+//   "description": "This is the description for Task 8",
+//   "section": 1
+// });
+  var requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+ })}
+
+
 function deleteCard(id)
 {
 var requestOptions = {
@@ -191,4 +250,5 @@ var requestOptions = {
 fetch("http://localhost:8080/api/boards/1/cards/"+id, requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
-  .catch(error => console.log('error', error));}
+  .catch(error => console.log('error', error));
+}
