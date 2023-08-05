@@ -283,3 +283,74 @@ align-items: center;
 
 
   /*styling bottom -----------------------------------------------------------*/
+
+  .form-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+}
+
+/* style popup for for creating card  */
+.form-container {
+    position: absolute;
+    top: 50%;
+  width:70%;
+  height:fit-content;
+    color:#4b4276;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Styles for the form elements */.form-container label, .form-container input, .form-container button, .form-container select {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-container label {
+    font-weight: bold;
+}
+
+
+
+.form-container .btn {
+    background-color: #007bff; /* Blue color */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.form-container .btn.cancel {
+    background-color: #dc3545; /* Red color */
+}
+
+.form-container input,
+.form-container select ,
+.form-container textarea{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    caret-color: #4b4276; /* Set the cursor color to black */
+}
+#closeFormBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+  caret-color: black;
+  color: black; /* Set the text color to black for focused state */
+}
+

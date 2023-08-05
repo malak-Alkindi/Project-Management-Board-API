@@ -58,3 +58,29 @@ boardNav.addEventListener("submit", (event) => {
         }
   
 })
+
+//*hide and show create card form *//
+const showFormBtn = document.getElementById('showFormBtn');
+const closeFormBtn = document.getElementById('closeFormBtn');
+const cardpopupForm = document.getElementById('cardpopupForm');
+
+showFormBtn.addEventListener('click', () => {
+    cardpopupForm.style.display = 'block';
+});
+
+
+closeFormBtn.addEventListener('click', () => {
+    cardpopupForm.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === cardpopupForm) {
+        cardpopupForm.style.display = 'none';
+    }
+});
+
+cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
+    event.preventDefault();
+ alert("this work wow");
+ cardpopupForm.style.display = 'none';
+});

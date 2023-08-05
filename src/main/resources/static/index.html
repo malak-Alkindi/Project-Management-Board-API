@@ -20,7 +20,7 @@
             <form id="setName" style="display:flex">
 
    
-                <input class ='headerInput'type="text" id="boardNameInput" value="" placeholder="type here">
+                <input class ='headerInput'type="text" id="boardNameInput" value="" placeholder="type here" required>
 
 
                 <input type="submit" value="set" class="header-submit_btn">
@@ -33,8 +33,8 @@
             <h2 class="sideBarHeaddin">sittings</h2>
             <ul>
                 <li><a href="#"><i class="bi bi-trello"></i>  Boards</a></li>
-                <li><a href="#"><i class="bi bi-plus-square-fill"></i>  add card</a></li>
-              
+                <li id="showFormBtn"><a href="#"><i class="bi bi-plus-square-fill"></i>  add card</a></li>
+               
             </ul> 
            
         </div>
@@ -95,7 +95,26 @@
     <div class="bottom"></div>
    
     
+    <div id="cardpopupForm" class="form-popup">
+        <form class="form-container">
+          
+            <label for="cardname">card Name:</label>
+            <input placeHolder="Enter"type="text" id="cardname" required>
 
+            <label for="description">description:</label>
+            <textarea id="description " rows="4" required></textarea>
+
+            <label for="status">Status:</label>
+            <select id="status" required>
+                <option value="1">To Do</option>
+                <option value="2">In Progress</option>
+                <option value="3">Done</option>
+                
+            </select>
+            <button type="submit" class="btn">Submit</button>
+            <button type="button" class="btn cancel" id="closeFormBtn">Close</button>
+        </form>
+    </div>
     <script type="text/javascript" src="index.js"></script>
 </body>
 
