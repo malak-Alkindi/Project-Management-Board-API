@@ -8,9 +8,10 @@ var requestOptionss = {
 fetch("http://localhost:8080/api/boards", requestOptionss)
     .then((response) => {return response.json()})
     .then((result) => {
-        
+      
         
       result.forEach(board => {
+        console.log(board);
         fetchBoard(board.board_id,board.boardName)
     })
 
@@ -20,6 +21,7 @@ fetch("http://localhost:8080/api/boards", requestOptionss)
 
 
   function fetchBoard(id, name) {
+ 
     const boardGrid = document.querySelector(".board-grid");
 
     const boardDiv = document.createElement("div");
@@ -59,8 +61,9 @@ fetch("http://localhost:8080/api/boards", requestOptionss)
   
   fetch("http://localhost:8080/api/boards/"+boardIdd, requestOptions)
     .then(response => response.text())
-    .then(result => {console.log(result);
-    location.reload})
+    .then(result =>{ location.reload();
+      console.log(result)
+    })
     .catch(error => console.log('error', error));
 }
 function goToBoard(idd){
@@ -80,9 +83,9 @@ createBoard.addEventListener('submit', (event) => {
   myHeaders.append("Content-Type", "application/json");
   
   var raw = JSON.stringify({
-    "boardName": document.getElementById('boardTitle')
+    "boardName": document.getElementById('boardTitle').value
   });
-  
+
   var requestOptions = {
     method: 'POST',
     headers: myHeaders,
