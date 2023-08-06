@@ -7,15 +7,13 @@
     <link rel="stylesheet" href="board.css">
 </head>
 <body>
-    <div class="board-form">
-        <div class="form-title">Create a New Board:</div>
+    <form id="createBoardForm" class="board-form">
+        <label for="boardTitle"class="form-title">Create a New Board:</label>
         <input type="text" id="boardTitle" class="form-input" placeholder="Enter the board title">
-        <button onclick="createBoard()" class="form-button">Create Board</button>
-    </div>
+        <button  type="submit" class="form-button">Create Board</button>
+    </form>
     <div class="board-grid">
-        <!-- Board 1 -->
        
-        <!-- Add more boards as needed -->
     </div>
 </body>
 <script type="text/javascript" src="board.js"></script>

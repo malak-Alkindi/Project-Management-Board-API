@@ -1,18 +1,17 @@
 
 
 
-var requestOptions = {
+var requestOptionss = {
     method: 'GET',
     redirect: 'follow'
   };
-fetch("http://localhost:8080/api/boards", requestOptions)
+fetch("http://localhost:8080/api/boards", requestOptionss)
     .then((response) => {return response.json()})
     .then((result) => {
         
-         
         
       result.forEach(board => {
-        createBoard(board.board_id,board.boardName)
+        fetchBoard(board.board_id,board.boardName)
     })
 
   })
@@ -20,12 +19,12 @@ fetch("http://localhost:8080/api/boards", requestOptions)
 
 
 
-  function createBoard(id, name) {
+  function fetchBoard(id, name) {
     const boardGrid = document.querySelector(".board-grid");
 
     const boardDiv = document.createElement("div");
     boardDiv.classList.add("board");
-    boardDiv.id = id;
+   
     
     const boardIdDiv = document.createElement("div");
     boardIdDiv.classList.add("board-id");
@@ -34,15 +33,15 @@ fetch("http://localhost:8080/api/boards", requestOptions)
     const boardNameDiv = document.createElement("div");
     boardNameDiv.classList.add("board-name");
     boardNameDiv.textContent = name;
-    boardNameDiv.onclick = function () {
+    boardNameDiv.addEventListener('click', function(){
         goToBoard(id);
-     };
+     });
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
     deleteButton.textContent = "Delete";
-    deleteButton.onclick = function () {
+    deleteButton.addEventListener('click', function(){
         deleteBoard(id);
-    };
+    });
 
     boardDiv.appendChild(boardIdDiv);
     boardDiv.appendChild(boardNameDiv);
@@ -52,25 +51,51 @@ fetch("http://localhost:8080/api/boards", requestOptions)
 }
 
 // Function to delete a board
- function deleteBoard(boardId) {
-    var requestOptions = {
-        method: 'DELETE',
-        redirect: 'follow'
-      };
-      
-      fetch("http://localhost:8080/api/boards/"+boardId, requestOptions)
-        .then(response => response.text())
-        .then(result =>{ 
-            location.reload();
-            console.log(result)
-        })
-        .catch(error => console.log('error', error));
+ function deleteBoard(boardIdd) {
+  var requestOptions = {
+    method: 'DELETE',
+    redirect: 'follow'
+  };
+  
+  fetch("http://localhost:8080/api/boards/"+boardIdd, requestOptions)
+    .then(response => response.text())
+    .then(result => {console.log(result);
+    location.reload})
+    .catch(error => console.log('error', error));
 }
-function goToBoard(id){
+function goToBoard(idd){
     const myObject = {
-        id: id,
+        id: idd,
       };
   
       localStorage.setItem("myObject", JSON.stringify(myObject));
       window.location.href = "./pages/card.html";
 }
+
+
+createBoard=document.getElementById('createBoardForm')
+createBoard.addEventListener('submit', (event) => {
+  event.preventDefault();
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  
+  var raw = JSON.stringify({
+    "boardName": document.getElementById('boardTitle')
+  });
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  fetch("http://localhost:8080/api/boards", requestOptions)
+    .then(response => response.text())
+    .then(result => { location.reload();
+      console.log(result)
+    })
+    .catch(error => console.log('error', error));})
+
+
+

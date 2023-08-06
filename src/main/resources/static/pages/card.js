@@ -250,7 +250,7 @@ function Update(id,title,description,section){
  }
 
 
-a=function deleteCard(id)
+function deleteCard(id)
 {
 var requestOptions = {
   method: 'DELETE',

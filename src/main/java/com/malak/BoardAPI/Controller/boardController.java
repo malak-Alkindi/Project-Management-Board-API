@@ -74,16 +74,24 @@ public  class  boardController {
 
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public APIResponse deleteBoard(@PathVariable Long id) throws NotFoundException {
-        List<card> cardList=cardService.getAllCards(id);
-for(card card:cardList){
 
-    cardService.deleteACard(id,card.getCardId());
-}
- return boardService.deleteABoard(id);
+        try {
+            List<card> cardList = cardService.getAllCards(id);
 
+            if (!cardList.isEmpty()) {
+                for (card card : cardList) {
+                    cardService.deleteACard(id,card.getCardId());
+                }
+            }
+
+            // Now delete the board
+            return boardService.deleteABoard(id);
+        } catch (NotFoundException e) {
+            return boardService.deleteABoard(id);
+
+        }
     }
 }
-
 //quations i need to ask
 //1) the exeption catshing should be in service or in controller
 //2) is getBoardsOrOneBoard is a good way to write
