@@ -12,6 +12,8 @@ import com.malak.BoardAPI.requestObject.cardRequestObject;
 import com.malak.BoardAPI.responseObject.APIResponse;
 import com.malak.BoardAPI.responseObject.cardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class cardController {
 
     @PostMapping
     public cardResponseObject createANewCard(@PathVariable Long board_id,@RequestBody cardRequestObject requestedCard) throws CustomDataAccessException, CustomDataIntegrityException, CustomException, NotFoundException {
-
+        try {
         board boardObj = boardService.getBoardById(board_id);
         card cardObject = new card();
         cardObject.setTitle(requestedCard.getTitle());
@@ -40,6 +42,13 @@ public class cardController {
         cardObject.setCreatedDate(new Date());
 
         return cardService.createANewCard(cardObject);
+        } catch (DataIntegrityViolationException e) {
+            throw new CustomDataIntegrityException("Data integrity violation occurred while saving the card.", e);
+        } catch (DataAccessException e) {
+            throw new CustomDataAccessException("An error occurred while saving the card.", e);
+        } catch (Exception e) {
+            throw new CustomException("An unexpected error occurred while saving the card.", e);
+        }
     }
 
 
@@ -83,6 +92,10 @@ public class cardController {
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public APIResponse deleteCard(@PathVariable Long board_id,@PathVariable Long id) throws NotFoundException {
 
-        return cardService.deleteACard(board_id,id);
+        try {
+            return cardService.deleteACard(board_id, id);
+        } catch (Exception ex) {
+            return new APIResponse(false,"An error occurred"+ HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 }

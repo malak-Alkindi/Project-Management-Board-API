@@ -12,6 +12,8 @@ import com.malak.BoardAPI.requestObject.boardRequestObject;
 import com.malak.BoardAPI.responseObject.APIResponse;
 import com.malak.BoardAPI.responseObject.boardResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,25 +30,34 @@ public  class  boardController {
 
     @PostMapping
     public boardResponseObject createAnewBoard(@RequestBody boardRequestObject requstedBoard) throws CustomDataAccessException, CustomDataIntegrityException, CustomException {
-        board boardObject = new board();
-        boardObject.setBoardName(requstedBoard.getBoardName());
-        Map<Integer, String> Columns = new HashMap<>();
+        try {
+            board boardObject = new board();
+            boardObject.setBoardName(requstedBoard.getBoardName());
 
-        Columns.put(1, "To do");
-        Columns.put(2, "In progress");
-        Columns.put(3, "Done");
-        boardObject.setColumns(Columns);
+            Map<Integer, String> Columns = new HashMap<>();
+            Columns.put(1, "To do");
+            Columns.put(2, "In progress");
+            Columns.put(3, "Done");
+            boardObject.setColumns(Columns);
 
-        return boardService.createAnewBoard(boardObject);
+            return boardService.createAnewBoard(boardObject);
+        } catch (DataIntegrityViolationException e) {
+            throw new CustomDataIntegrityException("Data integrity violation occurred while saving the board.", e);
+        } catch (DataAccessException e) {
+            throw new CustomDataAccessException("An error occurred while saving the board.", e);
+        } catch (Exception e) {
+            throw new CustomException("An unexpected error occurred while saving the board.", e);
+        }
+
     }
 
-    @GetMapping(value = {"", "{id}"})
 
-    public ResponseEntity<List<boardResponseObject>> getBoardsOrOneBoard(@PathVariable(required = false) Long id) {
+    @GetMapping
+    public ResponseEntity<List<boardResponseObject>> getBoards(@PathVariable(required = false) Long id) {
         List<boardResponseObject> boardResponseList = new ArrayList<>();
 
         try {
-            List<board> boards = id != null ? Collections.singletonList(boardService.getBoardById(id)) : boardService.getAllBoards();
+            List<board> boards =  boardService.getAllBoards();
 
             for (board boardObj : boards) {
                 boardResponseObject boardResponseObject = new boardResponseObject(boardObj.getBoard_id(), boardObj.getBoardName(), boardObj.getColumns());
@@ -58,7 +69,16 @@ public  class  boardController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @GetMapping("{id}")
+    public ResponseEntity<boardResponseObject> getOneBoard(@PathVariable(required = false) Long id) {
+        try {
+            board boardObj =boardService.getBoardById(id);
+            boardResponseObject boardResponseList=  new boardResponseObject(boardObj.getBoard_id(), boardObj.getBoardName(), boardObj.getColumns());
+            return ResponseEntity.ok(boardResponseList);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @PutMapping(path = "{id}")
     public ResponseEntity<boardResponseObject> updateBoard(@PathVariable Long id, @RequestBody boardRequestObject updatedProduct) throws NotFoundException {
         board response = boardService.updateBoard(id, updatedProduct);
