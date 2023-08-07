@@ -58,7 +58,7 @@ public class cardService {
     }
     public card updateCard(Long boardId, Long id, cardRequestObject updatedCard) throws NotFoundException {
 
-
+        StringBuilder notFoundMessage = new StringBuilder("No Card found with ID: ").append(id).append("  assigned to board ").append(boardId);
         Optional<card> optionalCard = Optional.ofNullable(cardRepo.findCardByBoardIdAndCardId(boardId,id));
 
         if (optionalCard.isPresent()) {
@@ -77,17 +77,19 @@ public class cardService {
     }
 
     public APIResponse deleteACard(Long boardId,Long id) {
+        StringBuilder successMessage = new StringBuilder("Card with ID ").append(id).append(" has been deleted successfully. from ").append(boardId);
+        StringBuilder notFoundMessage = new StringBuilder("No Card found with ID: ").append(id).append(" from board").append(boardId);
         try {
             Optional<card> optionalCard = Optional.ofNullable(cardRepo.findCardByBoardIdAndCardId(boardId,id));
             if (optionalCard.isPresent()) {
                 cardRepo.deleteById(id);
 
-                return new APIResponse(true, "Card with ID " + id + " has been deleted successfully from board " + boardId);
+                return new APIResponse(true, successMessage.toString());
             } else {
-                return new APIResponse(false, "No card found with ID: " + id);
+                return new APIResponse(false, notFoundMessage.toString());
             }
         } catch (EmptyResultDataAccessException e) {
-            return new APIResponse(false, "No card found with ID: " + id);
+            return new APIResponse(false, notFoundMessage.toString());
         }
     }
 

@@ -52,6 +52,7 @@ public class boardService {
     }
 
     public board getBoardById(Long boardId) throws NotFoundException {
+
         return boardRepo.findById(boardId).orElseThrow(() -> new NotFoundException("Board not found with the given ID: " + boardId));
     }
 
@@ -73,20 +74,22 @@ public class boardService {
 }
 
         public APIResponse deleteABoard(Long id) {
+            StringBuilder successMessage = new StringBuilder("Board with ID ").append(id).append(" has been deleted successfully.");
+            StringBuilder notFoundMessage = new StringBuilder("No board found with ID: ").append(id);
             try {
                 Optional<board> boardOptional = boardRepo.findById(id);
 
                 if (boardOptional.isPresent()) {
                     boardRepo.deleteById(id);
 
-                    return new APIResponse(true, "Board with ID " + id + " has been deleted successfully.");
+                    return new APIResponse(true,successMessage.toString() );
                 } else {
 
-                    return new APIResponse(false, "No board found with ID: " + id);
+                    return new APIResponse(false, notFoundMessage.toString());
                 }
             } catch (EmptyResultDataAccessException e) {
 
-                return new APIResponse(false, "No board found with ID: " + id);
+                return new APIResponse(false, notFoundMessage.toString());
             }
 
     }
