@@ -7,13 +7,13 @@ var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 
-var requestOptions = {
+const requestOptionss = {
   method: 'GET',
   headers: myHeaders,
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/api/boards/"+boardiD, requestOptions)
+fetch("http://localhost:8080/api/boards/"+boardiD, requestOptionss)
   .then((response) =>{ return response.json()})
   .then((result) => {
     console.log(result)
@@ -27,7 +27,7 @@ fetch("http://localhost:8080/api/boards/"+boardiD, requestOptions)
 
 
 //getting the caards--------------------------------------------------------
-  var requestOptions = {
+  const requestOptions = {
     method: 'GET',
     redirect: 'follow'
   };
@@ -110,7 +110,7 @@ cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
       "section": document.getElementById("status").value
     });
     
-    var requestOptions = {
+    const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
@@ -230,7 +230,7 @@ function Update(id,title,description,section){
   });
   
 
-  var requestOptions = {
+  const requestOptions = {
     method: 'PUT',
     headers: myHeaders,
     body: raw,
@@ -252,7 +252,7 @@ function Update(id,title,description,section){
 
 function deleteCard(id)
 {
-var requestOptions = {
+const requestOptions = {
   method: 'DELETE',
   redirect: 'follow'
 };

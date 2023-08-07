@@ -1,11 +1,8 @@
 
 
 
-var requestOptionss = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-fetch("http://localhost:8080/api/boards", requestOptionss)
+
+fetch("http://localhost:8080/api/boards")
     .then((response) => {return response.json()})
     .then((result) => {
       
@@ -54,7 +51,7 @@ fetch("http://localhost:8080/api/boards", requestOptionss)
 
 // Function to delete a board
  function deleteBoard(boardIdd) {
-  var requestOptions = {
+  const requestOptions = {
     method: 'DELETE',
     redirect: 'follow'
   };
@@ -81,7 +78,7 @@ createBoard.addEventListener('submit', (event) => {
   event.preventDefault();
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  
+
   var raw = JSON.stringify({
     "boardName": document.getElementById('boardTitle').value
   });
@@ -92,13 +89,20 @@ createBoard.addEventListener('submit', (event) => {
     body: raw,
     redirect: 'follow'
   };
-  
-  fetch("http://localhost:8080/api/boards", requestOptions)
+
+  fetch("http://localhost:8080/api/boards",{
+                                                   method: 'POST',
+                                                   headers: {
+                                                       'Content-Type': 'application/json',
+                                                   },
+                                                   body: JSON.stringify({
+                                                       boardName: document.getElementById('boardTitle').value
+                                                   })})
     .then(response => response.text())
     .then(result => { location.reload();
       console.log(result)
     })
-    .catch(error => console.log('error', error));})
+    .catch(error => console.log('error', error))})
 
 
 
