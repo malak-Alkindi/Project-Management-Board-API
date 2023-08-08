@@ -9,7 +9,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@Data
 @Entity
 public class card extends BaseEntity {
 

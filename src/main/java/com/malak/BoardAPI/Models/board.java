@@ -9,9 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-@Data
 @Entity
-
 public class board  extends BaseEntity {
 
     @Id

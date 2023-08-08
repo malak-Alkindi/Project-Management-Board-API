@@ -22,7 +22,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/boards")
-
+@CrossOrigin("*")
 public  class  boardController {
     @Autowired
     boardService boardService;

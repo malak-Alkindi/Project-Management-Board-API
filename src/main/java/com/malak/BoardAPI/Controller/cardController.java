@@ -24,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping ("/api/boards/{board_id}/cards")
+@CrossOrigin("*")
 public class cardController {
     @Autowired
     boardService boardService;

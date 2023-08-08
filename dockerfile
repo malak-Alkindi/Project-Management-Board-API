@@ -2,12 +2,13 @@ FROM openjdk:17-jdk-alpine
 
 WORKDIR /app
 
+COPY . .
+
 RUN apk add --no-cache maven
 
-COPY . /app
-
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/spring-boot-starter-parent-0.0.1-SNAPSHOT.jar"]
+
+CMD ["java", "-jar", "target/BoardAPI-0.0.1.jar"]
