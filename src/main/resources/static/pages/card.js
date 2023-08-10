@@ -257,6 +257,9 @@ const requestOptions = {
   redirect: 'follow'
 };
 
+
+
+
 fetch("http://"+hostName+"8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
   .then(response => response.text())
   .then(result => { 
