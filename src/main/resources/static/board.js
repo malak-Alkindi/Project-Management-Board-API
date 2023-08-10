@@ -1,10 +1,10 @@
-
+const hostName = window.location.hostname
  
 // Defining async function
 async function getapi() {
    
     // Storing response
-    const response = await fetch( "http://localhost:8080/api/boards");
+    const response = await fetch( "http://"+hostName+":8080/api/boards");
    
     // Storing data in form of JSON
     var data = await response.json();
@@ -64,7 +64,7 @@ getapi();
     redirect: 'follow'
   };
   
-  fetch("http://localhost:8080/api/boards/"+boardIdd, requestOptions)
+  fetch("http://"+hostName+":8080/api/boards/"+boardIdd, requestOptions)
     .then(response => response.text())
     .then(result =>{ location.reload();
       console.log(result)
@@ -98,7 +98,7 @@ createBoard.addEventListener('submit', (event) => {
     redirect: 'follow'
   };
 
-  fetch("http://localhost:8080/api/boards",{
+  fetch("http://"+hostName+":8080/api/boards",{
                                                    method: 'POST',
                                                    headers: {
                                                        'Content-Type': 'application/json',

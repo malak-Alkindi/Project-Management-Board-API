@@ -1,5 +1,5 @@
 //setting the saved board name----------------------------------
-
+const hostName = window.location.hostname
 const jsonString = localStorage.getItem("myObject");
 const myObject = JSON.parse(jsonString);
 const boardiD=myObject.id;
@@ -13,7 +13,7 @@ const requestOptionss = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/api/boards/"+boardiD, requestOptionss)
+fetch("http://"+hostName+":8080/api/boards/"+boardiD, requestOptionss)
   .then((response) =>{ return response.json()})
   .then((result) => {
     console.log(result)
@@ -32,7 +32,7 @@ fetch("http://localhost:8080/api/boards/"+boardiD, requestOptionss)
     redirect: 'follow'
   };
   
-  fetch("http://localhost:8080/api/boards/"+boardiD+"/cards", requestOptions)
+  fetch("http://"+hostName+":8080/api/boards/"+boardiD+"/cards", requestOptions)
     .then((response) => {return response.json()})
     .then((result) => {
       result.forEach(cardElment => {
@@ -66,7 +66,7 @@ boardNav.addEventListener("submit", (event) => {
               redirect: 'follow'
             };
             
-            fetch("http://localhost:8080/api/boards/"+boardiD, requestOptions)
+            fetch("http://"+hostName+":8080/api/boards/"+boardiD, requestOptions)
               .then(response => response.text())
               .then(result =>{ location.reload();
                 console.log(result)
@@ -117,7 +117,7 @@ cardpopupForm.querySelector('form').addEventListener('submit', (event) => {
       redirect: 'follow'
     };
     
-    fetch("http://localhost:8080/api/boards/"+boardiD+"/cards", requestOptions)
+    fetch("http://"+hostName+":8080/api/boards/"+boardiD+"/cards", requestOptions)
       .then(response => response.text())
       .then(result =>{ location.reload();
         console.log(result)
@@ -237,7 +237,7 @@ function Update(id,title,description,section){
     redirect: 'follow'
   };
   
-  fetch("http://localhost:8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
+  fetch("http://"+hostName+":8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
   .then(response => response.text())
   .then(result =>{ 
     ucardpopupForm.style.display = 'none';
@@ -257,7 +257,7 @@ const requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
+fetch("http://"+hostName+"8080/api/boards/"+boardiD+"/cards/"+id, requestOptions)
   .then(response => response.text())
   .then(result => { 
     location.reload();
