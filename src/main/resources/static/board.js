@@ -1,8 +1,8 @@
-const hostName = window.location.hostname
- 
+//const hostName = window.location.hostname
+ const hostName = "localhost"
 // Defining async function
 async function getapi() {
-   
+document.getElementById("boardGrid").innerText=""
     // Storing response
     const response = await fetch( "http://"+hostName+":8080/api/boards");
    
@@ -10,7 +10,8 @@ async function getapi() {
     var data = await response.json();
     console.log(data);
     if (response) {
-    
+      const boardGrid = document.querySelector(".board-grid");
+       boardGrid.innerHtml="";
     }
     data.forEach(board => {
       console.log(board);
@@ -40,20 +41,28 @@ getapi();
     const boardNameDiv = document.createElement("div");
     boardNameDiv.classList.add("board-name");
     boardNameDiv.textContent = name;
-    boardNameDiv.addEventListener('click', function(){
-        goToBoard(id);
-     });
+
+ const ButtonsDiv = document.createElement("div");
+  ButtonsDiv.classList.add("buttonDivs");
+
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
     deleteButton.textContent = "Delete";
     deleteButton.addEventListener('click', function(){
         deleteBoard(id);
     });
-
+   const goToOtherPage = document.createElement("button");
+    goToOtherPage.classList.add("goCards-button");
+    goToOtherPage.textContent = "Cards";
+    goToOtherPage.addEventListener('click', function(){
+        goToBoard(id);
+    });
     boardDiv.appendChild(boardIdDiv);
     boardDiv.appendChild(boardNameDiv);
-    boardDiv.appendChild(deleteButton);
 
+    ButtonsDiv.appendChild(deleteButton);
+ButtonsDiv.appendChild(goToOtherPage);
+boardDiv.appendChild(ButtonsDiv);
     boardGrid.appendChild(boardDiv);
 }
 
@@ -66,7 +75,7 @@ getapi();
   
   fetch("http://"+hostName+":8080/api/boards/"+boardIdd, requestOptions)
     .then(response => response.text())
-    .then(result =>{ location.reload();
+    .then(result =>{ getapi();
       console.log(result)
     })
     .catch(error => console.log('error', error));
@@ -107,7 +116,7 @@ createBoard.addEventListener('submit', (event) => {
                                                        boardName: document.getElementById('boardTitle').value
                                                    })})
     .then(response => response.text())
-    .then(result => { location.reload();
+    .then(result => { getapi();
       console.log(result)
     })
     .catch(error => console.log('error', error))})
