@@ -1,6 +1,9 @@
 //setting the saved board name----------------------------------
-const hostName = window.location.hostname
+//const hostName = window.location.hostname
+ const hostName = "localhost"
 const jsonString = localStorage.getItem("myObject");
+
+
 const myObject = JSON.parse(jsonString);
 const boardiD=myObject.id;
 var myHeaders = new Headers();
@@ -16,9 +19,9 @@ const requestOptionss = {
 fetch("http://"+hostName+":8080/api/boards/"+boardiD, requestOptionss)
   .then((response) =>{ return response.json()})
   .then((result) => {
-    console.log(result)
-    let boardName=document.getElementById("boardName")
-    boardName.innerText = " Welcome "+result[0].boardName
+    console.log(result.boardName)
+    let boardName=document.getElementById("NavName")
+    boardName.innerText = " Welcome "+result.boardName
 
 
   })
