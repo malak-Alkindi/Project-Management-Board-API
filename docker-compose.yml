@@ -27,7 +27,7 @@ services:
   ui:
     image: nginx
     ports:
-      - "90:90"
+      - "80:80"
     volumes:
       - ./src/main/resources/static:/usr/share/nginx/html
     depends_on:

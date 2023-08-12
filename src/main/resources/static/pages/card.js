@@ -1,6 +1,6 @@
 //setting the saved board name----------------------------------
-//const hostName = window.location.hostname
-const hostName = "localhost"
+const hostName = window.location.hostname
+//const hostName = "localhost"
 const jsonString = localStorage.getItem("myObject");
 
 

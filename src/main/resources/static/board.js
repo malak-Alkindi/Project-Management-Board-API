@@ -1,5 +1,5 @@
-//const hostName = window.location.hostname
- const hostName = "localhost"
+const hostName = window.location.hostname
+ //const hostName = "localhost"
 // Defining async function
 async function getapi() {
 document.getElementById("boardGrid").innerText=""
