@@ -25,7 +25,7 @@ public class cardService {
     cardRepositry cardRepo;
 
     public cardResponseObject createANewCard(card cardObject) throws CustomDataIntegrityException, CustomDataAccessException, CustomException {
-        // Validate cardObject and perform necessary input validation before saving.
+
 
         try {
             card savedCard = cardRepo.save(cardObject);

@@ -1,6 +1,5 @@
 //setting the saved board name----------------------------------
 const hostName = window.location.hostname
-//const hostName = "localhost"
 const jsonString = localStorage.getItem("myObject");
 
 
@@ -61,6 +60,7 @@ function getBoards() {
 }
 
 getBoards()
+
 //update board name----------------------------------------------------
 let boardNav = document.getElementById("setName");
 boardNav.addEventListener("submit", (event) => {
@@ -100,7 +100,7 @@ boardNav.addEventListener("submit", (event) => {
 
 })
 
-//*hide and show create card form *//
+//hide and show create card form-----------------------------------------------------------
 const showFormBtn = document.getElementById('showFormBtn');
 const closeFormBtn = document.getElementById('closeFormBtn');
 const cardpopupForm = document.getElementById('cardpopupForm');
@@ -221,7 +221,7 @@ function createHtmlCard(id, name, description, section) {
 
 
 
-
+//hide and show update card form-----------------------------------------------------------
 const ushowFormBtn = document.getElementById('ushowFormBtn');
 const ucloseFormBtn = document.getElementById('ucloseFormBtn');
 const ucardpopupForm = document.getElementById('ucardpopupForm');
@@ -288,6 +288,8 @@ updateForm.addEventListener('submit', (event) => {
     })
     .catch(error => console.log('error', error));
 })
+
+//delete card --------------------------------------------------------------
 function deleteCard(id) {
 
 
@@ -305,7 +307,7 @@ function deleteCard(id) {
     .catch(error => console.log('error', error));
 }
 
-/// drag and drop
+//drag and drop cards ---------------------------------------------------------
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -364,7 +366,7 @@ function dragDrop(ev) {
 }
 }
 
-////search bar
+//search bar --------------------------------------------------------------------------
 function search() {
 
   input = document.getElementById("myInput");

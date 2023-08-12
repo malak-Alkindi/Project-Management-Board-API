@@ -1,6 +1,6 @@
 package com.malak.BoardAPI.Models;
 
-import jakarta.persistence.MappedSuperclass;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
