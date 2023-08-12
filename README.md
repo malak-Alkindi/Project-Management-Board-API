@@ -9,7 +9,7 @@ My website includes several additional features:
 4) In the card pages, aside from fulfilling the required specifications, I've incorporated a drag-and-drop feature.
 5) I've integrated a card filtering mechanism, allowing users to search within the cards.
 6) Furthermore, I've designed popup forms for both updating existing cards and creating new ones.
-7) The styling of the website is responsive, ensuring compatibility across various screen sizes.
+7) The styling of the website is responsive.
 8) Lastly, I've streamlined the process of deletion and updating, making it possible to perform these actions with just a single click.
 
    note:
