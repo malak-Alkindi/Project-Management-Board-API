@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
-public class board  extends BaseEntity {
+public class board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

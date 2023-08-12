@@ -22,7 +22,7 @@ public class card extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "board_id_fk", referencedColumnName = "board_id")
-    private board board;
+    private com.malak.BoardAPI.Models.board board;
 
 
 

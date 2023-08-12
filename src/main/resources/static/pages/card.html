@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>need to change according to reqiurment</title>
+    <title id="pageTitle"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="malak" content="apiUI">
     <link rel="stylesheet" type="text/css" href="card.css">
@@ -14,7 +14,7 @@
 
     <nav class="header">
         <div class="leftHeader">
-            <h1> <img class="logo"src="./pics/trelloLogo.png" >  <div id="NavName">   </div></h1>
+            <h1> <img class="logo"src="./pics/trelloLogo.png" >  <div id="boardName">   </div></h1>
         </div>
         <div class="rightHeader">
             <form id="setName" style="display:flex">
@@ -47,7 +47,8 @@
           <h3>to do</h3>
         
     </div>
-        <div class="todo" id="todo">
+        <div class="todo" id="todo"   ondrop="dragDrop(event)"
+        ondragover="allowDrop(event)">
            
         </div>
 </div>
@@ -61,7 +62,8 @@
             <h3>in progress</h3>
           
     </div>
-        <div class="inprogress" id="inprogress">
+        <div class="inprogress" id="inprogress"   ondrop="dragDrop(event)"
+        ondragover="allowDrop(event)">
             
            
               
@@ -73,7 +75,8 @@
         <div class="CardsHeaderColums">
             <h3>done</h3>
         </div>
-        <div class="done" id="done">
+        <div class="done" id="done"   ondrop="dragDrop(event)"
+        ondragover="allowDrop(event)">
           
         
              
@@ -108,7 +111,7 @@
 
     
     <div id="ucardpopupForm" class="form-popup">
-        <form class="form-container">
+        <form class="form-container" id="popUpdatedForm">
           
             <label for="ucardname">card Name:</label>
             <input placeHolder="Enter"type="text" id="ucardname" required>
