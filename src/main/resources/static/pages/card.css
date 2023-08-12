@@ -56,8 +56,17 @@ align-items: center;
   border-radius: 3px;
   font-size: 1rem;
 }
-
-
+.searchBar {
+  width: -webkit-fill-available;
+  padding: 0.5rem;
+  border: none;
+  background-color: white;
+  color: #4b4276;
+  font-size: 1rem;
+}
+.searchBar:focus {
+  color: #333; /* Changing the text color when focused */
+}
 .headerInput :focus, input:focus {
   color:whitesmoke;
 }

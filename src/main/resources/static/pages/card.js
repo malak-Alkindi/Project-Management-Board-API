@@ -364,4 +364,18 @@ function dragDrop(ev) {
 }
 }
 
+////search bar
+function search() {
+
+  input = document.getElementById("myInput");
+  filter = input.value.toLowerCase();
+  document.querySelectorAll('.card').forEach(item => {
+    const itemText = item.textContent.toLowerCase();
+    if (itemText.includes(filter)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
 
